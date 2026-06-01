@@ -1,0 +1,133 @@
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║          ERREUR : BASE DE DONNÉES INTROUVABLE                ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝
+
+
+🔴 PROBLÈME
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Erreur : "Unknown database 'blog_laravel'"
+
+La base de données n'existe pas encore !
+
+
+✅ SOLUTION (2 MINUTES)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+MÉTHODE 1 : Script Automatique (RECOMMANDÉ)
+────────────────────────────────────────────
+
+1. Double-cliquez sur : CREER_BASE_ET_LANCER.bat
+
+2. Suivez les instructions à l'écran
+
+
+MÉTHODE 2 : Manuel
+──────────────────
+
+ÉTAPE 1 : Créer la base de données
+───────────────────────────────────
+
+1. Ouvrez votre navigateur
+
+2. Allez sur : http://localhost/phpmyadmin
+
+3. Cliquez sur "Nouvelle base de données" (ou "New")
+
+4. Nom de la base : blog_laravel
+
+5. Interclassement : utf8mb4_unicode_ci
+
+6. Cliquez sur "Créer"
+
+
+OU via SQL :
+────────────
+
+Dans phpMyAdmin, onglet "SQL", collez :
+
+CREATE DATABASE blog_laravel 
+CHARACTER SET utf8mb4 
+COLLATE utf8mb4_unicode_ci;
+
+Puis cliquez sur "Exécuter"
+
+
+ÉTAPE 2 : Exécuter les migrations
+──────────────────────────────────
+
+Dans le terminal, dans le dossier blog-laravel :
+
+php artisan migrate
+
+
+ÉTAPE 3 : Créer les utilisateurs de test
+─────────────────────────────────────────
+
+php artisan db:seed --class=AdminSeeder
+
+
+ÉTAPE 4 : Créer le lien pour les images
+────────────────────────────────────────
+
+php artisan storage:link
+
+
+ÉTAPE 5 : Nettoyer le cache
+────────────────────────────
+
+php artisan config:clear
+
+
+ÉTAPE 6 : Relancer le serveur
+──────────────────────────────
+
+Arrêtez le serveur (Ctrl+C) puis relancez :
+
+php artisan serve
+
+
+ÉTAPE 7 : Ouvrir dans le navigateur
+────────────────────────────────────
+
+http://localhost:8000
+
+
+🎯 VÉRIFICATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Pour vérifier que la base existe :
+
+php artisan migrate:status
+
+Si vous voyez une liste de migrations, c'est bon ! ✅
+
+
+👤 COMPTES DE TEST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Admin : admin@blog.com / password
+User  : user@blog.com / password
+
+
+🐛 PROBLÈMES COURANTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ "Access denied for user 'root'"
+   ➜ Vérifiez le mot de passe MySQL dans .env
+
+❌ "SQLSTATE[HY000] [2002] Connection refused"
+   ➜ Démarrez MySQL dans XAMPP Control Panel
+
+❌ La base existe mais l'erreur persiste
+   ➜ Exécutez : php artisan config:clear
+
+
+═══════════════════════════════════════════════════════════════
+
+La solution est simple : créer la base de données !
+Utilisez CREER_BASE_ET_LANCER.bat pour tout automatiser.
+
+═══════════════════════════════════════════════════════════════
