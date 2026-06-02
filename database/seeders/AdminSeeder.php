@@ -12,9 +12,9 @@ class AdminSeeder extends Seeder
     {
         // Créer le propriétaire du blog (unique)
         User::create([
-            'name' => 'Propriétaire du Blog',
-            'email' => 'owner@blog.com',
-            'password' => Hash::make('password'),
+            'name' => env('ADMIN_NAME', 'Propriétaire du Blog'),
+            'email' => env('ADMIN_EMAIL', 'ownerblog@gmail.com'),
+            'password' => Hash::make(env('ADMIN_PASSWORD', 'password')),
             'role' => 'owner',
             'bio' => 'Passionné de technologie, de développement web et de partage de connaissances. Bienvenue sur mon blog personnel !',
             'facebook' => 'https://facebook.com',

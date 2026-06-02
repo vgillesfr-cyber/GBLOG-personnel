@@ -1,0 +1,239 @@
+═══════════════════════════════════════════════════════════════
+🚀 VARIABLES D'ENVIRONNEMENT POUR RAILWAY
+═══════════════════════════════════════════════════════════════
+
+Copiez ces variables dans le "Raw Editor" de Railway :
+
+═══════════════════════════════════════════════════════════════
+
+# Application
+APP_NAME="Mon Blog Personnel"
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://votre-domaine.railway.app
+
+# Générez une nouvelle clé avec : php artisan key:generate
+APP_KEY=base64:VOTRE_CLE_GENEREE_ICI
+
+# Database (MySQL sur Railway)
+# Railway fournit automatiquement DATABASE_URL, mais vous pouvez aussi utiliser :
+DB_CONNECTION=mysql
+DB_HOST=${MYSQLHOST}
+DB_PORT=${MYSQLPORT}
+DB_DATABASE=${MYSQLDATABASE}
+DB_USERNAME=${MYSQLUSER}
+DB_PASSWORD=${MYSQLPASSWORD}
+
+# Session & Cache
+SESSION_DRIVER=database
+SESSION_LIFETIME=120
+CACHE_DRIVER=database
+QUEUE_CONNECTION=database
+
+# Mail (optionnel - pour mot de passe oublié)
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS="noreply@monblog.com"
+MAIL_FROM_NAME="${APP_NAME}"
+
+# Logging
+LOG_CHANNEL=stack
+LOG_LEVEL=error
+
+# Broadcasting & Queue (optionnel)
+BROADCAST_DRIVER=log
+
+# Filesystem
+FILESYSTEM_DISK=public
+
+═══════════════════════════════════════════════════════════════
+📋 FORMAT POUR RAW EDITOR (copier tel quel)
+═══════════════════════════════════════════════════════════════
+
+APP_NAME=Mon Blog Personnel
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://votre-domaine.railway.app
+APP_KEY=base64:VOTRE_CLE_GENEREE_ICI
+DB_CONNECTION=mysql
+DB_HOST=${MYSQLHOST}
+DB_PORT=${MYSQLPORT}
+DB_DATABASE=${MYSQLDATABASE}
+DB_USERNAME=${MYSQLUSER}
+DB_PASSWORD=${MYSQLPASSWORD}
+SESSION_DRIVER=database
+SESSION_LIFETIME=120
+CACHE_DRIVER=database
+QUEUE_CONNECTION=database
+LOG_CHANNEL=stack
+LOG_LEVEL=error
+FILESYSTEM_DISK=public
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS=noreply@monblog.com
+MAIL_FROM_NAME=Mon Blog Personnel
+BROADCAST_DRIVER=log
+
+═══════════════════════════════════════════════════════════════
+⚙️ ÉTAPES DE DÉPLOIEMENT SUR RAILWAY
+═══════════════════════════════════════════════════════════════
+
+1️⃣  CRÉER UN NOUVEAU PROJET
+   ────────────────────────────────────────────────────────────
+   • Allez sur railway.app
+   • Créez un nouveau projet
+   • Sélectionnez "Deploy from GitHub"
+   • Connectez votre dépôt GitHub
+
+
+2️⃣  AJOUTER UNE BASE DE DONNÉES MYSQL
+   ────────────────────────────────────────────────────────────
+   • Dans votre projet Railway
+   • Cliquez sur "+ New"
+   • Sélectionnez "Database" → "MySQL"
+   • Railway créera automatiquement les variables :
+     MYSQLHOST, MYSQLPORT, MYSQLDATABASE, MYSQLUSER, MYSQLPASSWORD
+
+
+3️⃣  CONFIGURER LES VARIABLES D'ENVIRONNEMENT
+   ────────────────────────────────────────────────────────────
+   • Cliquez sur votre service Laravel
+   • Allez dans l'onglet "Variables"
+   • Cliquez sur "Raw Editor"
+   • Collez les variables ci-dessus
+   • Remplacez :
+     - APP_URL par votre URL Railway
+     - APP_KEY par une clé générée
+
+
+4️⃣  GÉNÉRER UNE APP_KEY
+   ────────────────────────────────────────────────────────────
+   En local, exécutez :
+   > php artisan key:generate --show
+   
+   Copiez la clé générée (commence par base64:...)
+   Collez-la dans APP_KEY
+
+
+5️⃣  CONFIGURER LE BUILD
+   ────────────────────────────────────────────────────────────
+   Railway détecte automatiquement Laravel.
+   
+   Si besoin, créez un fichier "nixpacks.toml" à la racine :
+   
+   [phases.setup]
+   nixPkgs = ["php82", "php82Extensions.pdo_mysql"]
+   
+   [phases.build]
+   cmds = ["composer install --no-dev --optimize-autoloader"]
+   
+   [start]
+   cmd = "php artisan config:cache && php artisan route:cache && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT}"
+
+
+6️⃣  DÉPLOYER
+   ────────────────────────────────────────────────────────────
+   • Railway déploiera automatiquement
+   • Attendez que le build soit terminé
+   • Vérifiez les logs pour les erreurs
+
+
+7️⃣  EXÉCUTER LES MIGRATIONS
+   ────────────────────────────────────────────────────────────
+   Dans les logs de déploiement, Railway exécutera :
+   > php artisan migrate --force
+   
+   Ou manuellement via Railway CLI :
+   > railway run php artisan migrate --force
+   > railway run php artisan db:seed --class=AdminSeeder
+
+
+8️⃣  CRÉER LE LIEN DE STOCKAGE
+   ────────────────────────────────────────────────────────────
+   > railway run php artisan storage:link
+
+
+═══════════════════════════════════════════════════════════════
+📁 FICHIERS À CRÉER (optionnel)
+═══════════════════════════════════════════════════════════════
+
+1. Procfile (à la racine du projet)
+   ────────────────────────────────────────────────────────────
+   web: php artisan serve --host=0.0.0.0 --port=${PORT}
+
+
+2. nixpacks.toml (à la racine du projet)
+   ────────────────────────────────────────────────────────────
+   [phases.setup]
+   nixPkgs = ["php82", "php82Extensions.pdo_mysql", "php82Extensions.gd"]
+   
+   [phases.build]
+   cmds = [
+     "composer install --no-dev --optimize-autoloader",
+     "php artisan config:cache",
+     "php artisan route:cache",
+     "php artisan view:cache"
+   ]
+   
+   [start]
+   cmd = "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT}"
+
+
+═══════════════════════════════════════════════════════════════
+🔒 SÉCURITÉ
+═══════════════════════════════════════════════════════════════
+
+⚠️ IMPORTANT :
+• APP_DEBUG=false en production
+• APP_ENV=production
+• Utilisez une vraie APP_KEY (générée)
+• Ne commitez JAMAIS le fichier .env
+
+
+═══════════════════════════════════════════════════════════════
+🐛 DÉPANNAGE
+═══════════════════════════════════════════════════════════════
+
+Problème : "No application encryption key"
+   Solution : Générez et ajoutez APP_KEY
+
+Problème : Erreur de connexion MySQL
+   Solution : Vérifiez que les variables ${MYSQL*} sont correctes
+
+Problème : Storage non accessible
+   Solution : Exécutez "railway run php artisan storage:link"
+
+Problème : 500 Error
+   Solution : Vérifiez les logs avec "railway logs"
+
+
+═══════════════════════════════════════════════════════════════
+✅ CHECKLIST DE DÉPLOIEMENT
+═══════════════════════════════════════════════════════════════
+
+□ Projet créé sur Railway
+□ Base de données MySQL ajoutée
+□ Variables d'environnement configurées
+□ APP_KEY générée et ajoutée
+□ APP_URL mise à jour
+□ Migrations exécutées
+□ Storage link créé
+□ Seeder AdminSeeder exécuté
+□ Site accessible
+
+
+═══════════════════════════════════════════════════════════════
+
+🎉 Votre blog est maintenant en ligne !
+
+Accédez-y via : https://votre-domaine.railway.app
+
+═══════════════════════════════════════════════════════════════

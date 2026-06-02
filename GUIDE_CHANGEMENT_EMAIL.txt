@@ -1,0 +1,152 @@
+╔═══════════════════════════════════════════════════════════════╗
+║                                                               ║
+║         📧 GUIDE : CHANGER L'EMAIL DU PROPRIÉTAIRE           ║
+║                                                               ║
+╚═══════════════════════════════════════════════════════════════╝
+
+
+═══════════════════════════════════════════════════════════════
+🏠 EN LOCAL
+═══════════════════════════════════════════════════════════════
+
+MÉTHODE 1 : Script Automatique (Recommandé)
+────────────────────────────────────────────────────────────
+Double-cliquez sur : CHANGER_EMAIL_OWNER.bat
+
+Entrez votre nouvel email quand demandé.
+
+
+MÉTHODE 2 : Ligne de Commande
+────────────────────────────────────────────────────────────
+php artisan owner:change-email votre.nouvel@email.com
+
+
+MÉTHODE 3 : phpMyAdmin
+────────────────────────────────────────────────────────────
+1. Ouvrez http://localhost/phpmyadmin
+2. Sélectionnez la base "blog_laravel"
+3. Cliquez sur la table "users"
+4. Trouvez l'utilisateur avec role = 'owner'
+5. Cliquez sur "Modifier" (icône crayon)
+6. Changez le champ "email"
+7. Cliquez sur "Exécuter"
+
+
+═══════════════════════════════════════════════════════════════
+☁️ EN LIGNE (RAILWAY)
+═══════════════════════════════════════════════════════════════
+
+MÉTHODE 1 : Railway CLI (Recommandé)
+────────────────────────────────────────────────────────────
+1. Installez Railway CLI si pas déjà fait :
+   https://docs.railway.app/develop/cli
+
+2. Connectez-vous :
+   railway login
+
+3. Liez votre projet :
+   railway link
+
+4. Changez l'email :
+   railway run php artisan owner:change-email nouvel@email.com
+
+
+MÉTHODE 2 : Adminer (Interface Web)
+────────────────────────────────────────────────────────────
+1. Sur Railway, ajoutez un service Adminer :
+   • Cliquez sur "+ New"
+   • "Template" → "Adminer"
+
+2. Ouvrez l'URL d'Adminer
+
+3. Connectez-vous avec les credentials MySQL Railway :
+   • Système : MySQL
+   • Serveur : Trouvez MYSQLHOST dans Variables
+   • Utilisateur : Trouvez MYSQLUSER dans Variables
+   • Mot de passe : Trouvez MYSQLPASSWORD dans Variables
+   • Base : Trouvez MYSQLDATABASE dans Variables
+
+4. Ouvrez la table "users"
+
+5. Modifiez l'email du propriétaire (role = 'owner')
+
+
+MÉTHODE 3 : Tinker (Console Interactive)
+────────────────────────────────────────────────────────────
+railway run php artisan tinker
+
+Puis dans tinker :
+$owner = \App\Models\User::where('role', 'owner')->first();
+$owner->email = 'nouvel@email.com';
+$owner->save();
+exit
+
+
+═══════════════════════════════════════════════════════════════
+✅ VÉRIFICATION
+═══════════════════════════════════════════════════════════════
+
+Après le changement, testez :
+
+1. Déconnectez-vous du blog
+2. Essayez de vous connecter avec le NOUVEL email
+3. Vérifiez que vous pouvez accéder à "Gestion"
+
+
+═══════════════════════════════════════════════════════════════
+🔑 IDENTIFIANTS PAR DÉFAUT
+═══════════════════════════════════════════════════════════════
+
+Avant changement :
+Email    : owner@blog.com
+Password : password
+
+Après changement :
+Email    : votre.nouvel@email.com
+Password : password (inchangé)
+
+
+═══════════════════════════════════════════════════════════════
+🔒 CHANGER AUSSI LE MOT DE PASSE
+═══════════════════════════════════════════════════════════════
+
+Si vous voulez aussi changer le mot de passe :
+
+En local :
+php artisan tinker
+$owner = \App\Models\User::where('role', 'owner')->first();
+$owner->password = bcrypt('NouveauMotDePasse123');
+$owner->save();
+exit
+
+En ligne (Railway) :
+railway run php artisan tinker
+$owner = \App\Models\User::where('role', 'owner')->first();
+$owner->password = bcrypt('NouveauMotDePasse123');
+$owner->save();
+exit
+
+
+═══════════════════════════════════════════════════════════════
+🐛 DÉPANNAGE
+═══════════════════════════════════════════════════════════════
+
+Erreur : "Aucun propriétaire trouvé"
+   Solution : Créez d'abord le propriétaire avec :
+   php artisan db:seed --class=AdminSeeder
+
+Erreur : "Email déjà utilisé"
+   Solution : Cet email est déjà pris par un visiteur.
+   Changez d'email ou supprimez le visiteur.
+
+Erreur : "Email invalide"
+   Solution : Vérifiez le format de l'email (doit contenir @)
+
+
+═══════════════════════════════════════════════════════════════
+
+✅ Email changé avec succès !
+
+Vous pouvez maintenant vous connecter avec le nouvel email.
+
+═══════════════════════════════════════════════════════════════
