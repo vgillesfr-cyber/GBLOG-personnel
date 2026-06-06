@@ -40,7 +40,7 @@ DB_URL=${{MySQL.MYSQL_URL}}
 
 ## 5. Déployer
 
-Railway redéploie automatiquement. Le script `scripts/railway-start.sh` exécute :
+Le projet utilise un **Dockerfile** (plus fiable que Nixpacks seul). Railway redéploie automatiquement. Le script `scripts/railway-start.sh` exécute :
 - migrations
 - création du compte propriétaire (`owner:ensure`)
 - lien storage
@@ -63,6 +63,7 @@ Railway redéploie automatiquement. Le script `scripts/railway-start.sh` exécut
 | Formulaires HTTP au lieu HTTPS | Redéployez (trust proxies + forceScheme déjà configurés) |
 | Erreur 500 | Mettez `APP_DEBUG=true` temporairement, consultez les logs Railway |
 | Build OK mais crash au start | Onglet Deployments → View Logs, cherchez l'erreur de migration |
+| Failed to build an image (3 sec) | Vérifiez que le `Dockerfile` est bien poussé sur GitHub |
 
 ## Logs
 

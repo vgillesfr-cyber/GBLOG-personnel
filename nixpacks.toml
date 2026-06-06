@@ -1,22 +1,5 @@
-[phases.setup]
-nixPkgs = [
-  "php82",
-  "php82Extensions.pdo_mysql",
-  "php82Extensions.mbstring",
-  "php82Extensions.openssl",
-  "php82Extensions.tokenizer",
-  "php82Extensions.xml",
-  "php82Extensions.curl",
-  "php82Extensions.bcmath",
-  "php82Extensions.gd",
-  "php82Extensions.zip",
-]
-
-[phases.install]
-cmds = ["composer install --no-dev --optimize-autoloader --no-interaction"]
-
-[phases.build]
-cmds = []
+# Railway utilise le Dockerfile si présent.
+# Ce fichier sert de secours si le Dockerfile est retiré.
 
 [start]
 cmd = "bash scripts/railway-start.sh"
