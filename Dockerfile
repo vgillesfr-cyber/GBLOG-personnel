@@ -25,11 +25,14 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
 
+# Installer les dépendances sans scripts (artisan n'existe pas encore)
 COPY composer.json composer.lock ./
-ENV APP_KEY=base64:dGVtcG9yYXJ5a2V5Zm9yYnVpbGRvbmx5MDEyMzQ1Njc4OTA=
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+RUN composer install --no-dev --no-interaction --no-scripts --prefer-dist
 
+# Copier le code, puis finaliser l'autoload + découverte des packages
 COPY . .
+ENV APP_KEY=base64:dGVtcG9yYXJ5a2V5Zm9yYnVpbGRvbmx5MDEyMzQ1Njc4OTA=
+RUN composer dump-autoload --optimize --no-interaction
 
 RUN sed -i 's/\r$//' scripts/railway-start.sh \
     && chmod +x scripts/railway-start.sh
