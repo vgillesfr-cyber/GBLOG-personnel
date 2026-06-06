@@ -15,7 +15,8 @@ class EnsureOwnerExists extends Command
     {
         $email = env('ADMIN_EMAIL', 'ownerblog@gmail.com');
         $password = env('ADMIN_PASSWORD', 'password');
-        $name = env('ADMIN_NAME', 'Gilles');
+        $name = env('ADMIN_NAME', 'VIGAN Gilles Patrick');
+        $bio = 'Étudiant à l\'Université d\'Abomey-Calavi (EPAC). Passionné de technologie, de développement web et de partage de connaissances.';
 
         $owner = User::where('role', 'owner')->first()
             ?? User::where('email', $email)->first();
@@ -26,6 +27,7 @@ class EnsureOwnerExists extends Command
                 'email' => $email,
                 'password' => $password,
                 'role' => 'owner',
+                'bio' => $bio,
             ]);
             $this->info("✅ Compte propriétaire mis à jour : {$email}");
         } else {
@@ -34,7 +36,7 @@ class EnsureOwnerExists extends Command
                 'email' => $email,
                 'password' => $password,
                 'role' => 'owner',
-                'bio' => 'Passionné de technologie, de développement web et de partage de connaissances. Bienvenue sur mon blog personnel !',
+                'bio' => $bio,
             ]);
             $this->info("✅ Compte propriétaire créé : {$email}");
         }

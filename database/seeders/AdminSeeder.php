@@ -11,11 +11,11 @@ class AdminSeeder extends Seeder
     {
         // Créer le propriétaire du blog (unique)
         User::create([
-            'name' => env('ADMIN_NAME', 'Propriétaire du Blog'),
+            'name' => env('ADMIN_NAME', 'VIGAN Gilles Patrick'),
             'email' => env('ADMIN_EMAIL', 'ownerblog@gmail.com'),
             'password' => env('ADMIN_PASSWORD', 'password'),
             'role' => 'owner',
-            'bio' => 'Passionné de technologie, de développement web et de partage de connaissances. Bienvenue sur mon blog personnel !',
+            'bio' => 'Étudiant à l\'Université d\'Abomey-Calavi (EPAC). Passionné de technologie, de développement web et de partage de connaissances.',
             'facebook' => 'https://facebook.com',
             'twitter' => 'https://twitter.com',
             'instagram' => 'https://instagram.com',

@@ -30,6 +30,20 @@
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
+        .logo-g {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.25rem;
+            height: 2.25rem;
+            background: white;
+            color: #ff6b35;
+            border-radius: 0.5rem;
+            font-weight: 800;
+            font-size: 1.25rem;
+            line-height: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
     </style>
 </head>
 <body class="gradient-orange-light min-h-screen">
@@ -38,8 +52,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <a href="{{ route('home') }}" class="text-white text-2xl font-bold">
-                        <i class="fas fa-blog mr-2"></i>Mon Blog
+                    <a href="{{ route('home') }}" class="text-white text-2xl font-bold flex items-center">
+                        <span class="logo-g mr-2">G</span>Mon Blog
                     </a>
                 </div>
                 
@@ -114,7 +128,9 @@
     <footer class="gradient-orange text-white mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="text-center">
-                <p class="text-lg font-semibold mb-2">Mon Blog</p>
+                <p class="text-lg font-semibold mb-2 flex items-center justify-center gap-2">
+                    <span class="logo-g text-base w-8 h-8">G</span>Mon Blog
+                </p>
                 <p class="text-orange-100">© {{ date('Y') }} Tous droits réservés</p>
                 <div class="mt-4 space-x-4">
                     <a href="#" class="text-white hover:text-orange-100"><i class="fab fa-facebook fa-lg"></i></a>

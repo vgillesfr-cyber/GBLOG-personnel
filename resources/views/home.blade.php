@@ -7,8 +7,8 @@
     <!-- Hero Section -->
     <div class="gradient-orange rounded-3xl shadow-2xl p-12 mb-12 text-white">
         <div class="text-center">
-            <h1 class="text-5xl font-bold mb-4">
-                <i class="fas fa-blog mr-3"></i>Bienvenue sur Mon Blog
+            <h1 class="text-5xl font-bold mb-4 flex items-center justify-center gap-3">
+                <span class="logo-g text-3xl w-14 h-14">G</span>Bienvenue sur Mon Blog
             </h1>
             <p class="text-xl mb-8 text-orange-100">
                 Partagez vos idées, découvrez des articles passionnants et rejoignez notre communauté !
@@ -28,9 +28,11 @@
                     <a href="{{ route('posts.index') }}" class="bg-white text-orange-600 hover:bg-orange-50 px-8 py-4 rounded-full font-bold text-lg shadow-lg transform hover:scale-105 transition">
                         <i class="fas fa-newspaper mr-2"></i>Voir les articles
                     </a>
-                    <a href="{{ route('posts.create') }}" class="bg-orange-700 text-white hover:bg-orange-800 px-8 py-4 rounded-full font-bold text-lg shadow-lg transform hover:scale-105 transition">
-                        <i class="fas fa-plus-circle mr-2"></i>Créer un article
-                    </a>
+                    @if(auth()->user()->isOwner())
+                        <a href="{{ route('posts.create') }}" class="bg-orange-700 text-white hover:bg-orange-800 px-8 py-4 rounded-full font-bold text-lg shadow-lg transform hover:scale-105 transition">
+                            <i class="fas fa-plus-circle mr-2"></i>Créer un article
+                        </a>
+                    @endif
                 </div>
             @endguest
         </div>

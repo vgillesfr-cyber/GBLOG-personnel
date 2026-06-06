@@ -30,7 +30,10 @@
 
                     <!-- Informations -->
                     <div class="flex-1 text-center md:text-left">
-                        <h2 class="text-3xl font-bold text-gray-800 mb-2">{{ $owner->name }}</h2>
+                        <h2 class="text-3xl font-bold text-gray-800 mb-2">VIGAN Gilles Patrick</h2>
+                        <p class="text-gray-600 font-medium mb-2">
+                            <i class="fas fa-graduation-cap mr-1 text-orange-500"></i>Étudiant à l'Université d'Abomey-Calavi (EPAC)
+                        </p>
                         <p class="text-orange-600 font-semibold mb-4">
                             <i class="fas fa-crown mr-1"></i>Propriétaire du blog
                         </p>
@@ -72,11 +75,12 @@
         <!-- À propos du blog -->
         <div class="prose prose-lg max-w-none">
             <h2 class="text-2xl font-bold mb-4 text-gray-800">
-                <i class="fas fa-blog text-orange-500 mr-2"></i>À propos de ce blog
+                <span class="logo-g text-sm w-8 h-8 mr-2 align-middle">G</span>À propos de ce blog
             </h2>
             <p class="text-gray-700 mb-6 text-lg leading-relaxed">
-                Bienvenue sur mon blog personnel ! C'est un espace où je partage mes réflexions, 
-                mes découvertes et mes expériences sur divers sujets qui me passionnent.
+                Bienvenue sur mon blog personnel ! Je suis <strong>VIGAN Gilles Patrick</strong>, 
+                étudiant à l'<strong>Université d'Abomey-Calavi (EPAC)</strong>. C'est un espace où je partage 
+                mes réflexions, mes découvertes et mes expériences sur divers sujets qui me passionnent.
             </p>
 
             <h2 class="text-2xl font-bold mb-4 text-gray-800 mt-8">
