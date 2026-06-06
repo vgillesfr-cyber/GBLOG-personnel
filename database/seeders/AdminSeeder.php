@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class AdminSeeder extends Seeder
 {
@@ -14,7 +13,7 @@ class AdminSeeder extends Seeder
         User::create([
             'name' => env('ADMIN_NAME', 'Propriétaire du Blog'),
             'email' => env('ADMIN_EMAIL', 'ownerblog@gmail.com'),
-            'password' => Hash::make(env('ADMIN_PASSWORD', 'password')),
+            'password' => env('ADMIN_PASSWORD', 'password'),
             'role' => 'owner',
             'bio' => 'Passionné de technologie, de développement web et de partage de connaissances. Bienvenue sur mon blog personnel !',
             'facebook' => 'https://facebook.com',
@@ -27,14 +26,14 @@ class AdminSeeder extends Seeder
         User::create([
             'name' => 'Visiteur Test 1',
             'email' => 'visitor1@blog.com',
-            'password' => Hash::make('password'),
+            'password' => 'password',
             'role' => 'visitor',
         ]);
 
         User::create([
             'name' => 'Visiteur Test 2',
             'email' => 'visitor2@blog.com',
-            'password' => Hash::make('password'),
+            'password' => 'password',
             'role' => 'visitor',
         ]);
     }
