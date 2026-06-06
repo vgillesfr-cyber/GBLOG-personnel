@@ -179,7 +179,7 @@
                                             @endif
                                         </div>
                                         <p class="text-gray-700">
-                                            <span class="text-orange-600 font-semibold">@{{ $comment->user->name }}</span> {{ $reply->content }}
+                                            <span class="text-orange-600 font-semibold">{{ $comment->user->name }}</span> {{ $reply->content }}
                                         </p>
                                     </div>
                                 @endforeach

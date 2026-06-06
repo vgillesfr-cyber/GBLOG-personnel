@@ -8,9 +8,11 @@
         <h1 class="text-4xl font-bold text-gray-800">
             <i class="fas fa-newspaper text-orange-500 mr-3"></i>Tous les articles
         </h1>
-        <a href="{{ route('posts.create') }}" class="btn-orange text-white px-6 py-3 rounded-lg font-semibold shadow-lg">
-            <i class="fas fa-plus-circle mr-2"></i>Nouvel article
-        </a>
+        @if(auth()->user()->isOwner())
+            <a href="{{ route('posts.create') }}" class="btn-orange text-white px-6 py-3 rounded-lg font-semibold shadow-lg">
+                <i class="fas fa-plus-circle mr-2"></i>Nouvel article
+            </a>
+        @endif
     </div>
 
     @if($posts->count() > 0)
@@ -65,10 +67,12 @@
         <div class="bg-white rounded-xl shadow-lg p-12 text-center">
             <i class="fas fa-inbox text-gray-300 text-6xl mb-4"></i>
             <h2 class="text-2xl font-bold text-gray-600 mb-2">Aucun article pour le moment</h2>
-            <p class="text-gray-500 mb-6">Soyez le premier à publier un article !</p>
-            <a href="{{ route('posts.create') }}" class="btn-orange text-white px-6 py-3 rounded-lg font-semibold inline-block shadow-lg">
-                <i class="fas fa-plus-circle mr-2"></i>Créer un article
-            </a>
+            <p class="text-gray-500 mb-6">Aucun article n'a encore été publié.</p>
+            @if(auth()->user()->isOwner())
+                <a href="{{ route('posts.create') }}" class="btn-orange text-white px-6 py-3 rounded-lg font-semibold inline-block shadow-lg">
+                    <i class="fas fa-plus-circle mr-2"></i>Créer un article
+                </a>
+            @endif
         </div>
     @endif
 </div>
